@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Control Flow" href="ControlFlow.html" />
-    <link rel="prev" title="Welcome to the documentation of the CDot language!" href="../index.html" />
+    <link rel="prev" title="The CDot Programming Language" href="../index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -36,22 +36,17 @@
             
   <div class="section" id="the-basics">
 <h1>The Basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h1>
-<p>CDot is an object oriented language that was designed to feel familiar to everyone who already knows a language of the C family or any other modern language, such as Swift or Rust.</p>
-<p>CDot programs are statically compiled and type-safe, which means that the types of every variable you declare need to be known at compile-time, which differentiates it from dynamic languages like Python and JavaScript. To ease the burden on developers, CDot supports powerful type inference, which means that you won’t have to write many type annotations in practice.</p>
-<p>Since it is good form to start of the documentation of any programming language by showing you how to print <code class="docutils literal notranslate"><span class="pre">&quot;Hello,</span> <span class="pre">World!&quot;</span></code> to the screen, here is what that looks like in CDot:</p>
-<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Hello, World! 🌍&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Now that that’s out of the way, it’s finally time to get started!</p>
 <div class="section" id="variables-constants">
 <h2>Variables &amp; Constants<a class="headerlink" href="#variables-constants" title="Permalink to this headline">¶</a></h2>
 <p>Variables and constants are the basic building blocks of every program; they allow you to assign a name to a value. The value of a constant, introduced by the <code class="docutils literal notranslate"><span class="pre">let</span></code> keyword, cannot change once it has been assigned. Variables on the other hand, which are introduced with the <code class="docutils literal notranslate"><span class="pre">var</span></code> keyword, can change their value at any time.</p>
 <p>The following piece of code introduces a variable named <code class="docutils literal notranslate"><span class="pre">myFavoriteColor</span></code> and assigns it the value <code class="docutils literal notranslate"><span class="pre">blue</span></code>. Since your preferences may change over time, we declare this as a variable with the <code class="docutils literal notranslate"><span class="pre">var</span></code> keyword, which allows us to reassign a different value later:</p>
-<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">var</span><span class="p"> </span><span class="g">myFavoriteColor</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="s">&quot;blue&quot;</span><span class="p"></span>
+<div class="highlight-CDot notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">var</span><span class="p"> </span><span class="g">myFavoriteColor</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="s">&quot;blue&quot;</span><span class="p"></span>
 <span class="c">// A few years later...</span><span class="p"></span>
 <span class="g">myFavoriteColor</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="s">&quot;green&quot;</span><span class="p"></span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>On the other hand you know that your birthday is never going to change, so you would create a constant to store it. If we try to reassign it later, the compiler would rightfully complain:</p>
 <div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">myBirthday</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="s">&quot;02/29/1993&quot;</span><span class="p"></span>
 <span class="g">myBirthday</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="s">&quot;01/01/2000&quot;</span><span class="p"> </span><span class="c">// error: trying to reassign constant</span><span class="p"></span>
@@ -83,7 +78,15 @@
 <div class="section" id="comments-semicolons">
 <h2>Comments &amp; Semicolons<a class="headerlink" href="#comments-semicolons" title="Permalink to this headline">¶</a></h2>
 <p>Similar to most C-like languages, CDot supports both single-line and block comments. Single line comments are introduced with two forward slashes and span until the end of the current line. Block comments begin with <code class="docutils literal notranslate"><span class="pre">/*</span></code> and end with <code class="docutils literal notranslate"><span class="pre">*/</span></code> and can span over multiple lines. Block comments can also be nested, so make sure the number of opening <code class="docutils literal notranslate"><span class="pre">/*</span></code> and closing <code class="docutils literal notranslate"><span class="pre">*/</span></code> match up:</p>
-<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="c">// This is a single line comment that ends here -&gt;</span><span class="p"></span>
+<div class="highlight-CDot notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">// This is a single line comment that ends here -&gt;</span><span class="p"></span>
 <span class="k">let</span><span class="p"> </span><span class="g">myConstant</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">12</span><span class="p"></span>
 
 <span class="c">/*</span>
@@ -93,29 +96,36 @@
 <span class="c">*/</span><span class="p"></span>
 <span class="k">let</span><span class="p"> </span><span class="g">myOtherConstant</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">42</span><span class="p"></span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Unlike C, you are not required to terminate statements with a semicolon in CDot. Sometimes inserting one is necessary for disambiguation though, especially when writing multiple statements on a single line:</p>
-<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">noSemicolonNecessary</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">3.0</span><span class="p"></span>
+<div class="highlight-CDot notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">noSemicolonNecessary</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">3.0</span><span class="p"></span>
 <span class="k">let</span><span class="p"> </span><span class="g">optionalSemicolon</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">21</span><span class="p">;</span>
 <span class="k">let</span><span class="p"> </span><span class="g">semicolonRequired</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">79</span><span class="p">; </span><span class="n">print</span><span class="p">(</span><span class="g">semicolonRequired</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="integer-types">
 <h2>Integer Types<a class="headerlink" href="#integer-types" title="Permalink to this headline">¶</a></h2>
 <p>CDot provides its own versions of the familiar integer types from C. These include signed and unsigned integer types with bitwidths of 8, 16, 32, 64 and 128. Like all type names in CDot, integer types start with a capital letter. As an example, the signed integer type with a size of 8 bits is called <code class="docutils literal notranslate"><span class="pre">Int8</span></code>, while the unsigned integer type with 32 bits is called <code class="docutils literal notranslate"><span class="pre">UInt32</span></code>. CDot provides two additional integer types, <code class="docutils literal notranslate"><span class="pre">Int</span></code> and <code class="docutils literal notranslate"><span class="pre">UInt</span></code>, which are equivalent to the signed and unsigned variants of the platforms word size, so on a 64-bit machine, <code class="docutils literal notranslate"><span class="pre">Int</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">Int64</span></code>.</p>
-<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">v1</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">219</span><span class="p"></span>
+<div class="highlight-CDot notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">v1</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">219</span><span class="p"></span>
 <span class="k">let</span><span class="p"> </span><span class="g">v2</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="o">-</span><span class="m">2191</span><span class="p"></span>
 <span class="n">print</span><span class="p">(</span><span class="g">v1</span><span class="p"> </span><span class="o">+</span><span class="p"> </span><span class="g">v2</span><span class="p">) </span><span class="c">// Prints -1,972</span><span class="p"></span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>The easiest way to create an integer is with an <em>integer literal</em>, like we have done in the previous examples. Integer literals can start with a minus sign to create a negative value, and they can includes underscores at arbitrary positions to enable better readability. Additionally, you can write binary, octal, and hexadecimal integer literals with the prefixes <code class="docutils literal notranslate"><span class="pre">0b</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, and <code class="docutils literal notranslate"><span class="pre">0x</span></code>, respectively.</p>
-<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">largeInt</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">1_000_000_000</span><span class="p"></span>
+<div class="highlight-CDot notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">largeInt</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">1_000_000_000</span><span class="p"></span>
 <span class="k">let</span><span class="p"> </span><span class="g">binaryInt</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">0b000101001010101</span><span class="p"></span>
 <span class="k">let</span><span class="p"> </span><span class="g">octalInt</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">0216125</span><span class="p"></span>
 <span class="k">let</span><span class="p"> </span><span class="g">hexInt</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">0x12ABC3EF</span><span class="p"></span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Usually, you should always use <code class="docutils literal notranslate"><span class="pre">Int</span></code> unless using a different type is really necessary. This makes interoperability between your code and other libraries easier. Even on 32-bit platforms, <code class="docutils literal notranslate"><span class="pre">Int</span></code> can store values between -2,147,483,648 and 2,147,483,647, which should be enough for most use cases.</p>
@@ -132,7 +142,13 @@
 <div class="section" id="booleans">
 <h2>Booleans<a class="headerlink" href="#booleans" title="Permalink to this headline">¶</a></h2>
 <p>A boolean is a type that can only take on two values, <code class="docutils literal notranslate"><span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">false</span></code>. Booleans are important because they are the key to many of the language’s control flow statements. Booleans are introduced with a <em>boolean literal</em>:</p>
-<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p"> </span><span class="l">true</span><span class="p"> {</span>
+<div class="highlight-CDot notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p"> </span><span class="l">true</span><span class="p"> {</span>
 <span class="p">    </span><span class="c">// This will always be executed.</span><span class="p"></span>
 <span class="p">}</span>
 
@@ -140,7 +156,7 @@
 <span class="p">    </span><span class="c">// This will never be executed.</span><span class="p"></span>
 <span class="p">}</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Unlike other languages, integers cannot be used in place of a boolean in CDot. You need to manually write <code class="docutils literal notranslate"><span class="pre">!=</span> <span class="pre">0</span></code> to use integers in a boolean condition.</p>
@@ -158,18 +174,30 @@
 </pre></div>
 </div>
 <p>CDot also includes <em>string interpolation</em>, which allows you to embed any arbitrary string-convertible expression within a string literal. Interpolations are introduced with a dollar sign and braces:</p>
-<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">name</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="s">&quot;Peter&quot;</span><span class="p"></span>
+<div class="highlight-CDot notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">name</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="s">&quot;Peter&quot;</span><span class="p"></span>
 <span class="k">let</span><span class="p"> </span><span class="g">currentYear</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">2020</span><span class="p"></span>
 <span class="k">let</span><span class="p"> </span><span class="g">birthYear</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">1993</span><span class="p"></span>
 <span class="n">print</span><span class="p">(</span><span class="s">&quot;Hi, my name is </span><span class="k">${</span><span class="g">name</span><span class="k">}</span><span class="s"> and I am </span><span class="k">${</span><span class="g">currentYear</span><span class="p"> </span><span class="o">-</span><span class="p"> </span><span class="g">birthYear</span><span class="k">}</span><span class="s"> years old&quot;</span><span class="p">)</span>
 <span class="c">// Prints &quot;Hi, my name is Peter and I am 27 years old&quot;</span><span class="p"></span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="collections">
 <h2>Collections<a class="headerlink" href="#collections" title="Permalink to this headline">¶</a></h2>
 <p>CDot provides special literals for common collection types like <code class="docutils literal notranslate"><span class="pre">Array</span></code> and <code class="docutils literal notranslate"><span class="pre">Dictionary</span></code>, both of which can be introduced using angle brackets <code class="docutils literal notranslate"><span class="pre">[]</span></code>:</p>
-<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">vowels</span><span class="p"> </span><span class="o">=</span><span class="p"> [</span><span class="s">&#39;a&#39;</span><span class="p">, </span><span class="s">&#39;e&#39;</span><span class="p">, </span><span class="s">&#39;i&#39;</span><span class="p">, </span><span class="s">&#39;o&#39;</span><span class="p">, </span><span class="s">&#39;u&#39;</span><span class="p">]</span>
+<div class="highlight-CDot notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">let</span><span class="p"> </span><span class="g">vowels</span><span class="p"> </span><span class="o">=</span><span class="p"> [</span><span class="s">&#39;a&#39;</span><span class="p">, </span><span class="s">&#39;e&#39;</span><span class="p">, </span><span class="s">&#39;i&#39;</span><span class="p">, </span><span class="s">&#39;o&#39;</span><span class="p">, </span><span class="s">&#39;u&#39;</span><span class="p">]</span>
 <span class="n">print</span><span class="p">(</span><span class="g">vowels</span><span class="p">[</span><span class="m">3</span><span class="p">]) </span><span class="c">// Prints &#39;o&#39;</span><span class="p"></span>
 
 <span class="k">let</span><span class="p"> </span><span class="g">cityPopulations</span><span class="p"> </span><span class="o">=</span><span class="p"> [</span>
@@ -179,7 +207,7 @@
 <span class="p">]</span>
 <span class="n">print</span><span class="p">(</span><span class="g">cityPopulations</span><span class="p">[</span><span class="s">&quot;Berlin&quot;</span><span class="p">]</span><span class="o">!</span><span class="p">) </span><span class="c">// Prints 3769000</span><span class="p"></span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>While the default type for array and dictionary literals are <code class="docutils literal notranslate"><span class="pre">Array</span></code> and <code class="docutils literal notranslate"><span class="pre">Dictionary</span></code> respectively, CDot allows you to enable literal initialization for custom collection types as well. See chapter <a class="reference internal" href="Protocols.html#expressible-by"><span class="std std-ref">ExpressibleBy Protocols</span></a> for more details.</p>
@@ -204,11 +232,13 @@
 <div class="section" id="tuples">
 <h2>Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h2>
 <p>In addition to named structure types, CDot also supports <em>tuples</em>, which are an easy way to group two or more related values. Tuples are spelled as a comma-separated list of values, and can be used whereever an expression is expected:</p>
-<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">var</span><span class="p"> </span><span class="g">person</span><span class="p"> </span><span class="o">=</span><span class="p"> (</span><span class="s">&quot;Joe&quot;</span><span class="p">, </span><span class="m">54</span><span class="p">, </span><span class="l">true</span><span class="p">)</span>
+<div class="highlight-CDot notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">var</span><span class="p"> </span><span class="g">person</span><span class="p"> </span><span class="o">=</span><span class="p"> (</span><span class="s">&quot;Joe&quot;</span><span class="p">, </span><span class="m">54</span><span class="p">, </span><span class="l">true</span><span class="p">)</span>
 <span class="n">print</span><span class="p">(</span><span class="g">person</span><span class="p">.</span><span class="m">0</span><span class="p">) </span><span class="c">// Prints &quot;Joe&quot;</span><span class="p"></span>
 <span class="g">person</span><span class="p">.</span><span class="m">1</span><span class="p"> </span><span class="o">+=</span><span class="p"> </span><span class="m">1</span><span class="p"> </span><span class="c">// Tuples can be modified</span><span class="p"></span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Values on a tuple can be accessed using a period followed by the zero-based index of the element you want to access.</p>
 </div>
 <div class="section" id="type-safety">
@@ -286,7 +316,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ControlFlow.html">Control Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BasicOperators.html">Basic Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOperators.html">Custom Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Closures.html">Closures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Structs.html">Structs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Classes.html">Classes</a></li>
@@ -298,14 +330,16 @@
 <li class="toctree-l1"><a class="reference internal" href="PatternMatching.html">Pattern Matching</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Generics.html">Generics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ErrorHandling.html">Error Handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ownership.html">Ownership</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Macros.html">Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Attributes.html">Attributes</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to the documentation of the CDot language!</a></li>
+      <li>Previous: <a href="../index.html" title="previous chapter">The CDot Programming Language</a></li>
       <li>Next: <a href="ControlFlow.html" title="next chapter">Control Flow</a></li>
   </ul></li>
 </ul>

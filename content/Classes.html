@@ -35,7 +35,59 @@
           <div class="body" role="main">
             
   <div class="section" id="classes">
-<h1>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h1>
+<p>Classes in CDot are similar to structs, but have one very important difference in their ownership behaviour: structs are <em>value types</em>, while classes are <em>reference types</em>. This means that a value of struct type needs to be explicitly copied or moved if you need to store it in more than one place, while a value of class type can be arbitrarily copied and referenced from multiple places, with each reference pointing to the same value. Classes are <em>reference counted</em>, which means that they keep track of how many references to the value exist, and take care of cleaning up themselves once that value reaches zero. The following example may make the difference between classes and structs more clear:</p>
+<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="p"> </span><span class="g">S</span><span class="p"> </span><span class="k">with</span><span class="p"> </span><span class="g">ImplicitlyCopyable</span><span class="p"> {</span>
+<span class="p">    </span><span class="k">var</span><span class="p"> </span><span class="g">value</span><span class="o">:</span><span class="p"> </span><span class="n">Int</span><span class="p"></span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="p"> </span><span class="g">C</span><span class="p"> {</span>
+<span class="p">    </span><span class="k">var</span><span class="p"> </span><span class="g">value</span><span class="o">:</span><span class="p"> </span><span class="n">Int</span><span class="p"></span>
+<span class="p">}</span>
+
+<span class="k">var</span><span class="p"> </span><span class="g">s</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="g">S</span><span class="p">(</span><span class="g">value</span><span class="o">:</span><span class="p"> </span><span class="m">1</span><span class="p">)</span>
+<span class="k">var</span><span class="p"> </span><span class="g">s2</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="g">s</span><span class="p"> </span><span class="c">// OK because S is ImplicitlyCopyable</span><span class="p"></span>
+
+<span class="g">s2</span><span class="p">.</span><span class="g">value</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">2</span><span class="p"></span>
+<span class="n">print</span><span class="p">(</span><span class="g">s</span><span class="p">.</span><span class="g">value</span><span class="p">) </span><span class="c">// Prints &quot;1&quot;</span><span class="p"></span>
+
+<span class="k">var</span><span class="p"> </span><span class="g">c</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="g">C</span><span class="p">(</span><span class="g">value</span><span class="o">:</span><span class="p"> </span><span class="m">1</span><span class="p">)</span>
+<span class="k">var</span><span class="p"> </span><span class="g">c2</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="g">c</span><span class="p"> </span><span class="c">// Copying a class just creates a new reference</span><span class="p"></span>
+
+<span class="g">c2</span><span class="p">.</span><span class="g">value</span><span class="p"> </span><span class="o">=</span><span class="p"> </span><span class="m">2</span><span class="p"></span>
+<span class="n">print</span><span class="p">(</span><span class="g">c1</span><span class="p">.</span><span class="g">value</span><span class="p">) </span><span class="c">// Prints &quot;2&quot;</span><span class="p"></span>
+</pre></div>
+</div>
+<p>As you can see, <code class="docutils literal notranslate"><span class="pre">s2</span></code> refers to a completely different value than <code class="docutils literal notranslate"><span class="pre">s</span></code>, even though it was created via a direct reference to <code class="docutils literal notranslate"><span class="pre">s</span></code>. On the other hand, both <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">c2</span></code> refer to the same underlying value, which means that modifications to <code class="docutils literal notranslate"><span class="pre">c2</span></code> are also reflected on <code class="docutils literal notranslate"><span class="pre">c</span></code>.</p>
+<div class="section" id="inheritance">
+<h2>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h2>
+<p>Because classes are reference types, they also allow for <em>inheritance</em>, a feature which you are probably familiar with if you’ve used another object oriented programming language before. You can define an inheritance clause with a colon following the class name:</p>
+<div class="highlight-CDot notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="g">Animal</span><span class="p"> {</span>
+<span class="p">    </span><span class="k">def</span><span class="p"> </span><span class="k">abstract</span><span class="p"> </span><span class="g">makeSound</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="p"> </span><span class="g">Cat</span><span class="o">:</span><span class="p"> </span><span class="g">Animal</span><span class="p"> {</span>
+<span class="p">    </span><span class="k">def</span><span class="p"> </span><span class="k">override</span><span class="p"> </span><span class="g">makeSound</span><span class="p">() {</span>
+<span class="p">        </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;meow&quot;</span><span class="p">)</span>
+<span class="p">    }</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="p"> </span><span class="g">Dog</span><span class="o">:</span><span class="p"> </span><span class="g">Animal</span><span class="p"> {</span>
+<span class="p">    </span><span class="k">def</span><span class="p"> </span><span class="k">override</span><span class="p"> </span><span class="g">makeSound</span><span class="p">() {</span>
+<span class="p">        </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;woof&quot;</span><span class="p">)</span>
+<span class="p">    }</span>
+<span class="p">}</span>
+
+<span class="k">def</span><span class="p"> </span><span class="g">useAnimal</span><span class="p">(_ </span><span class="g">animal</span><span class="o">:</span><span class="p"> </span><span class="g">Animal</span><span class="p">) {</span>
+<span class="p">    </span><span class="g">animal</span><span class="p">.</span><span class="g">makeSound</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="g">useAnimal</span><span class="p">(</span><span class="g">Cat</span><span class="p">()) </span><span class="c">// Prints &quot;meow&quot;</span><span class="p"></span>
+<span class="g">useAnimal</span><span class="p">(</span><span class="g">Dog</span><span class="p">()) </span><span class="c">// Prints &quot;woof&quot;</span><span class="p"></span>
+</pre></div>
+</div>
+<p>As you can see, classes also allow for the declaration of <em>virtual</em> (and <em>abstract</em>) methods. These will dynamically dispatch to the most specific implementation at runtime. An abstract method cannot define a body and must be overriden by all subclasses, while a virtual definition <em>may</em> or <em>may not</em> be overriden.</p>
+</div>
 </div>
 
 
@@ -73,10 +125,15 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Basics.html">The Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ControlFlow.html">Control Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BasicOperators.html">Basic Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOperators.html">Custom Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Closures.html">Closures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Structs.html">Structs</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Classes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#inheritance">Inheritance</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Enums.html">Enums</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Initialization.html">Initialization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Protocols.html">Protocols</a></li>
@@ -85,7 +142,9 @@
 <li class="toctree-l1"><a class="reference internal" href="PatternMatching.html">Pattern Matching</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Generics.html">Generics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ErrorHandling.html">Error Handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ownership.html">Ownership</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Macros.html">Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Attributes.html">Attributes</a></li>
 </ul>
 
 <div class="relations">

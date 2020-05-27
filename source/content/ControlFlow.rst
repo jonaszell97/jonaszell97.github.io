@@ -1,4 +1,7 @@
 
+.. highlight:: CDot
+   :linenothreshold: 3
+
 .. _control-flow:
 
 Control Flow
@@ -140,3 +143,53 @@ You can also provide custom matching behavior for any type. ``Range`` s for exam
     // Prints "large-ish"
 
 More complex patterns are explained in :ref:`pattern-matching`.
+
+Break & Continue
+----------------
+
+Loops introduced with ``while``, ``loop`` or ``for`` support ``break`` and ``continue`` statements within the loop body. The ``break`` statement will immediately end the execution of the loop and prevent any future iterations, regardless of whether or not the underlying condition value has changed. The ``continue`` keyword can be used to skip the rest of the current iteration and go on to the next one. ::
+
+    // Prints "1 3 5 7 9"
+    for i in 0..10 {
+        if i % 2 == 0 {
+            continue // Continue to the next iteration without printing
+        }
+
+        print(i)
+    }
+
+    loop {
+        if Int.random(upperBound: 10) ==  5 {
+            break // Exit the loop when the random value is equal to 5
+        }
+    }
+
+Labeled Loops
+-------------
+
+CDot also supports *labeled* loops in case you need more fine-grained control over which loop you want to ``break`` or ``continue`` from. A labeled loop is introduced by writing a label name followed by a colon before the actual loop::
+
+    // Try to figure out what this will print!
+    outer: for i in 0..5 {
+        for j in 0..5 {
+            if i + j == 5 {
+                continue outer
+            }
+
+            print("$i $j")
+        }
+    }
+
+In contrast to most other languages, CDot also allows you to break out of an ``if`` statement, but only if it is explicitly labeled::
+
+    if myCondition() {
+        break // error: can't break in unlabeled if
+    }
+
+    my_if: if complexCondition() {
+        if otherComplexCondition() {
+            break my_if // Allowed
+        }
+
+        doSomething()
+    }
